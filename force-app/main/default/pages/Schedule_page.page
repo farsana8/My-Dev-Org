@@ -1,0 +1,51 @@
+<apex:page Controller="Schedule_controller" sidebar="false" standardStylesheets="false" lightningStylesheets="true" >
+    <apex:form >
+         <apex:slds />
+        <apex:pageBlock id="pgblck" >
+             <apex:pageMessages ></apex:pageMessages>
+           <apex:pageBlockSection title="SCHEDULE" collapsible="true" columns="4" >
+             	<apex:pageBlockTable styleClass="slds-table slds-table_bordered slds-table_cell-buffer"  id="blck" value="{!DeviceSelectedlist}" var="a">
+        			<apex:column styleClass="slds-text-title_caps" value="{!a.roomtype}"/>
+        			<apex:column styleClass="slds-text-title_caps" breakBefore="true" colspan="2">
+                        <apex:pageBlockSection collapsible="true" columns="2" >
+                            <apex:pageBlockTable value="{!a.Selecteddevice}" var="c">
+                                <apex:column value="{!c.dev_name}"/>                   			
+                                <apex:column headerValue="Select" >
+                                    <apex:inputCheckbox value="{!c.selected}">
+                                    </apex:inputCheckbox>
+                                </apex:column>  
+                            </apex:pageBlockTable>
+                        </apex:pageBlockSection>
+        			 </apex:column>
+    		     </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+                <apex:inputField label="START TIME" value="{!Schedule.Start_Time__c}"/><br/><br/>
+                <apex:inputField label="END TIME" value="{!Schedule.End_Time__c}" /><br/><br/>
+            </apex:pageBlockSection> 
+            <div style="text-align:center" >
+                
+           
+        	<apex:pageBlock >
+                <apex:commandButton value="SCHEDULE NOW" styleClass="slds-button slds-button_neutral" action="{!schedule_action}"  rerender="pgblck"/> <br/>
+                <apex:commandButton immediate="true" value="CANCEL" styleClass="slds-button slds-button_neutral" action="{!schedule_cancel}" rerender="pgblck" /> 
+            </apex:pageBlock> 
+                 </div>
+            <apex:pageBlock title="SCHEDULED DEVICES" > 
+        <apex:pageBlockTable id="block" value="{!s_list}" var="a" styleClass="slds-table slds-table_bordered slds-table_cell-buffer">
+        			<apex:column headerValue="NAME" styleClass="slds-text-title_caps" value="{!a.Name}"/>
+                    <apex:column headerValue="START TIME" styleClass="slds-text-title_caps" value="{!a.Start_Time__c}"/>
+                    <apex:column headerValue="END TIME" styleClass="slds-text-title_caps" value="{!a.End_Time__c}"/>
+        			<apex:column styleClass="slds-text-title_caps" breakBefore="true" colspan="2">
+                        <apex:pageBlockSection collapsible="true" columns="2" >
+                            <apex:pageBlockTable value="{!a.Scheduled_Devices__r}" var="c">
+                                <apex:column value="{!c.device__r.Name}"/>                   			
+                                <apex:column value="{!c.device__r.room__r.Name}"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlockSection>
+        			 </apex:column>
+    		     </apex:pageBlockTable>
+    </apex:pageBlock>
+        </apex:pageBlock> 
+    </apex:form>
+</apex:page>

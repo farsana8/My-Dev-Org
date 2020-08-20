@@ -1,0 +1,7 @@
+<apex:page controller="comoncontrl" id="pg">
+<apex:include pageName="test1" id="pge"/>
+ <apex:form >
+  <apex:commandButton value="test" action="{!save}"/>
+ </apex:form>
+
+</apex:page>

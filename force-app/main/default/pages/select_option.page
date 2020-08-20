@@ -1,0 +1,14 @@
+<apex:page controller="select_option_controller">
+    <apex:form >       
+   <apex:selectList value="{!Selectedval}"  multiselect="false" size="1">
+         <apex:actionSupport event="onchange" action="{!changeList}" reRender="myblck"/>
+<apex:selectOptions value="{!items}">
+</apex:selectOptions>
+</apex:selectList>
+  <apex:pageBlock id="myblck" title="selected values">
+       <apex:pageBlockTable value="{!accList}" var="d" >
+       <apex:column value="{!d.Name}"/>                            
+      </apex:pageBlockTable>
+   </apex:pageBlock>      
+</apex:form>
+</apex:page>

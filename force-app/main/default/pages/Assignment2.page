@@ -1,0 +1,32 @@
+<apex:page standardController="stud__c" recordSetVar="stud">
+<apex:form >
+<apex:pageBlock title="MarkSheet" >
+<apex:pageBlockTable value="{!stud}" var="a" border="3">
+<apex:column headerValue=" Name">
+<apex:outputField value="{!a.name}"/>
+    </apex:column>
+<apex:column headerValue="Class">
+<apex:outputField value="{!a.class__c}"/>   
+    </apex:column>
+ <apex:column headerValue="Chemistry">
+<apex:outputField value="{!a.chemistry__c}"></apex:outputField> 
+</apex:column>
+ <apex:column headerValue="Physics">
+     <apex:outputField value="{!a.physics__c}"> </apex:outputField></apex:column>
+     <apex:column headerValue="Total">
+         <apex:outputText value="{!a.physics__c+a.chemistry__c}"> </apex:outputText></apex:column>
+    </apex:pageBlockTable>
+
+<!-- pagination actions supported by standard list controller -->
+<apex:pageBlockButtons >
+<apex:commandButton value="First" action="{!first}"/>
+<apex:commandButton value="Last" action="{!last}"/>
+<apex:commandButton value="Next" action="{!next}"/>
+<apex:commandButton value="previous" action="{!previous}" />
+</apex:pageBlockButtons>
+</apex:pageBlock>
+<apex:pageBlock >
+    <apex:image value="{!$Resource.image1}" height="200" width="100"/>  
+</apex:pageBlock>
+</apex:form>
+</apex:page>

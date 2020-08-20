@@ -1,0 +1,34 @@
+<apex:page controller="tryactioncontroller">
+    <apex:form >
+       {!count}
+    <apex:pageBlock >
+        <apex:actionFunction name="newFunc" action="{!act}" id="outptText"> 
+        </apex:actionFunction>
+       Click me  <apex:inputCheckbox onclick="newfunc()"></apex:inputCheckbox>
+    </apex:pageBlock>
+       
+            Input Text <apex:inputText >
+                <apex:actionSupport action="{!acti}" event="onChange" rerender="blck" />
+         
+        </apex:inputText>
+             
+         <apex:outputpanel id="panel1">
+                    <apex:outputText value="Click here to increment!"/>
+                    <apex:actionSupport event="onclick" action="{!incrementCounter}" rerender="out"/>
+                </apex:outputpanel>
+        <apex:pageBlock id="blck">
+            <apex:outputText value="{!count}" id="out" label="Count Is:"/>
+ 
+            <apex:outputText value="{!Display}" id="outptText"/>
+        </apex:pageBlock>
+       
+        <script>
+        function newfunc()
+        {
+            var a = confirm("yes/no?");
+            if(a == true);
+            newFunc(); 
+        }
+        </script>
+    </apex:form>
+</apex:page>

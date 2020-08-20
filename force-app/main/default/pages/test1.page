@@ -1,0 +1,17 @@
+<apex:page controller="comoncontrl">
+ 
+ <apex:form > 
+  <apex:actionFunction name="passvalues" action="{!test}" reRender="t,t2">
+   </apex:actionFunction>
+  Entername<apex:inputText value="{!std.name}" onblur="testjs();" id="t" /> 
+  
+  <br/><br/>
+  Branch <apex:inputText value="{!std.branch}" onblur="testjs();" id="t2" />
+</apex:form>
+ <script>
+  function testjs(){
+  //alert('hello'); 
+   passvalues();
+  }
+  </script>
+</apex:page>

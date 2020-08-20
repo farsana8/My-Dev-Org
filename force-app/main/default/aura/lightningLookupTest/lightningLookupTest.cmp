@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+
+    <aura:attribute Name="selItem" type="object"  access="public" /> 
+    <aura:attribute Name="selItem1" type="object"  access="public" />
+    <aura:attribute Name="selItem2" type="object"  access="public" />
+    <aura:attribute Name="selItem3" type="object"  access="public" />
+    <div class="slds">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 
+                        slds-small-size_1-of-1 
+                        slds-medium-size_1-of-2 
+                        slds-large-size_1-of-4 ">
+               <c:lightningLookup objectName="Account" fieldName="Name" label="Account Name" iconName="standard:account" placeholder="Enter Value" />
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

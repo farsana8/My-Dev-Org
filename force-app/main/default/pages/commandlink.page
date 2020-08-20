@@ -1,0 +1,7 @@
+<apex:page standardController="account">
+    <apex:outputLink value="http://www.x2od.com/2008/11/09/salesforce-order-of-execution" > google</apex:outputLink>
+    <apex:form >
+     <apex:commandLink action="{!save}" > google
+    </apex:commandLink>
+        </apex:form>
+</apex:page>

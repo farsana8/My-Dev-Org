@@ -1,0 +1,27 @@
+<apex:page controller="displayMessage"> 
+<apex:form >
+
+           
+ 
+   <!-- <apex:selectList value="{!SelectedOption}" size="1">
+        <apex:selectOption itemValue="" itemLabel="-- Select Option --"/>
+            <apex:repeat value="{!lstWrapper1}" var="Opt" >
+                {!Opt.stateName}
+                <apex:selectOptions itemValue="{!Opt.stateName}" itemLabel="{!Opt.stateName}"/>
+            </apex:repeat>
+            
+    </apex:selectList>-->
+    
+     <apex:selectList value="{!SelectedOption}" multiselect="false" size="1">
+                <apex:selectOption itemValue="" itemLabel="-- Select Option --"/>
+               <apex:repeat value="{!options}" var="Opt" >
+                <apex:selectOption itemValue="{!Opt.Value}" itemLabel="{!Opt.Label}"/>
+         </apex:repeat>
+            </apex:selectList>
+             
+      <!--<apex:selectList value="{!SelectedOption}"  size="1" multiselect="false">
+            <apex:selectOptions value="{!items}"/>
+        </apex:selectList><p/>-->
+
+</apex:form>
+</apex:page>

@@ -1,0 +1,255 @@
+<apex:page controller="home_controller" sidebar="false" standardStylesheets="false" lightningStylesheets="true">
+    <style type="text/css">
+        .toggle-check-input {
+        width: 1px;
+        height: 1px;
+        position: absolute;
+        }
+        
+        .toggle-check-text {
+        display: inline-block;
+        position: relative;
+        text-transform: uppercase;
+        background: #CCC;
+        padding: 0.25em 0.5em 0.25em 2em;
+        border-radius: 1em;
+        min-width: 2em;
+        color: #FFF;
+        cursor: pointer;
+        transition: background-color 0.15s;
+        }
+        
+        .toggle-check-text:after {
+        content: ' ';
+        display: block;
+        background: #FFF;
+        width: 1.1em;
+        height: 1.1em;
+        border-radius: 1em;
+        position: absolute;
+        left: 0.3em;
+        top: 0.25em;
+        transition: left 0.15s, margin-left 0.15s;
+        }
+        
+        .toggle-check-text:before {
+        content: 'OFF';
+        }
+        
+        .toggle-check-input:checked ~ .toggle-check-text {
+        background: #8ad869;
+        padding-left: 0.5em;
+        padding-right: 2em;
+        }
+        
+        .toggle-check-input:checked ~ .toggle-check-text:before {
+        content: 'ON';
+        }
+        
+        .toggle-check-input:checked ~ .toggle-check-text:after {
+        left: 100%;
+        margin-left: -1.4em;
+        }
+        #modal{
+        display:none;
+        }
+        .modal {
+        display: none; /* Hidden by default */
+        /*position: fixed;  Stay in place */
+        position: absolute;
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content */
+        .modal-content 
+        {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+        }
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0} 
+        to {top:0; opacity:1}
+        }
+        @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+        }
+        /* The Close Button */
+        .close 
+        {
+        color:blue;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        }
+        .close:hover,
+        .close:focus 
+        {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        }
+        .modal-header 
+        {
+        padding: 2px 16px;
+        background-color: #4689c4;
+        color: white;
+        }
+        .modal-body {padding: 2px 16px;}
+        .modal-footer 
+        {
+        padding: 2px 16px;
+        background-color: #4689c4;
+        color: white;
+        }
+        
+    </style>
+    <apex:slds />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
+    </script>
+    
+    <apex:form id="pnlSummary" >
+        <apex:pageMessages ></apex:pageMessages>
+        
+        <apex:pageBlock title="ROOMS"> 
+            
+            <apex:pageBlockSection >
+                <apex:pageBlockTable styleClass="slds-table slds-table_bordered slds-table_cell-buffer"  id="pgblck" value="{!roomDevicelist}" var="a">
+                    <b> <apex:column value="{!a.rtype}" styleClass="slds-text-title_caps"  /></b> 
+                    <apex:column breakBefore="true" colspan="1"  styleClass="slds-text-title_caps">
+                        <apex:pageBlockSection title="DEVICE DETAILS" showheader="true" collapsible="true" columns="1" >
+                            <apex:pageBlockTable value="{!a.deviceList}" var="c" styleClass="slds-truncate">
+                                <apex:column value="{!c.Name}"/>                            
+                                <apex:column headerValue="USAGE(in mins)" value="{!c.Usage__c}"/> 
+                                <apex:column headerValue="CURRENT STATUS" >
+                                    <!--<apex:inputCheckbox value="{!c.Status__c}" onclick="calculate('{!c.id}',checked)"/>-->
+                                    <label class="toggle-check">
+                                        <apex:inputCheckbox styleClass="toggle-check-input" value="{!c.Status__c}" onchange="calculate('{!c.id}',checked)">
+                                            <!-- <apex:actionFunction action="{!changeFun}" name="hold" reRender="pnlSummary" immediate="true"/>-->
+                                        </apex:inputCheckbox>
+                                        <span class="toggle-check-text" value="{!c.Status__c}"></span>
+                                    </label>
+                                </apex:column>
+                                <apex:column headerValue="SCHEDULE" >
+                                    
+                                    <!-- <apex:commandButton styleClass="slds-button slds-button_neutral" value="SCHEDULE" rerender="modal" onclick="Find('{!c.id}')" >
+</apex:commandButton>-->
+                                    <button type="button" class="slds-button slds-button_neutral"  onclick="Find('{!c.id}')">
+                                        SCHEDULE
+                                    </button>
+                                </apex:column>
+                            </apex:pageBlockTable>
+                        </apex:pageBlockSection>
+                    </apex:column>
+                </apex:pageBlockTable>
+                
+                <apex:actionfunction action="{!UpdateStatus}" name="calAF" rerender="pgblck">
+                    <apex:param assignto="{!chkId}" name="param1" value=""></apex:param>
+                    <apex:param assignto="{!chkStatus}" name="param" value=""> </apex:param>
+                </apex:actionfunction>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:pageBlock >
+        <div id="modal" class="modal">
+            <apex:form id="modal_frm" >
+                
+                <div class="modal-content" id="md1">
+                    <div >
+                        <apex:pageMessages ></apex:pageMessages>
+                    </div>
+                    <div class="modal-header">
+                        
+                        <span class="close" onclick="closeModal1()">&times;</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="modal-body">
+                        
+                        <apex:pageBlockSection id="mdl">
+                            
+                            <apex:outputField label="Room" value="{!Dev.room__r.Name}"/> 
+                            <apex:outputField label="Device" value="{!Dev.Name}" />
+                            <apex:inputField label="Start Time" value="{!Schedule.Start_Time__c}" />
+                            <apex:inputField label="End Time"   value="{!Schedule.End_Time__c}"  />               
+                            <!--<apex:commandButton styleClass="slds-button slds-button_neutral"   value="OK"  onclick="closeModal()"  rerender="modal_frm"/>-->
+                            <button type="button" class="slds-button slds-button_neutral"  onclick="closeModal()"   >
+                                OK
+                            </button>
+                        </apex:pageBlockSection>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+                <apex:actionfunction action="{!showPopup}" name="cal" rerender="mdl,md1">
+                    <apex:param assignto="{!SheddevId}" name="param1" value=""></apex:param>
+                </apex:actionfunction>
+                <apex:actionFunction action="{!closePopup}" name="Popup" rerender="modal_frm" oncomplete="test('{!flag}');"/>
+            </apex:form>
+        </div>
+        
+        
+    </apex:pageBlock>
+    
+    
+    
+    <script> 
+    function test(c){
+        if(c!=1)
+        { 
+            document.getElementById('modal').style.display = 'none';
+        }
+    }
+    function closeModal()
+    {
+        Popup();
+        // alert({!flag});
+        //  var st='{!flag}'; 
+        //   alert(st);
+        //if({!flag}!=1)
+        //if(st!=1)
+        // { alert('x'); alert({!flag});
+        
+        //document.getElementById('modal').style.display = 'none';
+        //}
+    }
+    function closeModal1()
+    { 
+        document.getElementById('modal').style.display = 'none';
+    }
+    function calculate(frst,c)
+    {
+        var id = frst;
+        console.log("frst",id);
+        console.log("frst",c);
+        calAF(id,c);
+    }
+    
+    function Find(c)
+    {
+        document.getElementById('modal').style.display = 'block';
+        var id = c; 
+        cal(id);
+    }
+    </script>
+</apex:page>

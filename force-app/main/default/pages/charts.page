@@ -1,0 +1,48 @@
+<apex:page controller="Graph" sidebar="false" >
+    <apex:pageBlock >
+        <apex:pageBlockSection collapsible="false" columns="2">
+            <apex:pageBlockSectionItem >
+                <apex:pageblock title="Room And Total Usage!!" >
+                <apex:chart height="400" width="500" data="{!pieData}" >
+                    <apex:pieSeries tips="true" dataField="data" labelField="name" donut="50" colorSet="#EC5578,#FFD300,#00C78C,#0676BF,#32C6A6,#ED872D"/>
+                    <apex:legend position="bottom"/>
+                </apex:chart>
+                </apex:pageblock>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:pageBlock title="Month wise total power consumption"> 
+                <apex:chart id="barid" height="400" width="200" data="{!barDatas}" colorSet="#355C7D"  >
+                    <apex:axis type="Numeric" position="left" fields="data" title="Total Usage in kwh"/>
+                    <apex:axis type="Category" position="bottom" fields="name" title="Month"/>
+                    <apex:barSeries orientation="vertical" axis="left" xField="name" yField="data" />
+                </apex:chart>
+                </apex:pageBlock>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Device usages"> 
+        <apex:chart height="400" width="900" animate="true" legend="true" data="{!bardata}">
+            <apex:legend position="left"/>
+            <apex:axis type="Numeric" position="left" title="usages" grid="true" fields="data1,data2">
+                <apex:chartLabel />
+            </apex:axis>
+            <apex:axis type="Category" position="bottom" title="device" grid="true" fields="name">
+                <apex:chartLabel />
+            </apex:axis>
+            <apex:lineSeries axis="left" xField="name" yField="data1" strokeColor="#FFECB3"  strokeWidth="4" title="previous month" markerFill="#8B0000"/>
+            <apex:lineSeries axis="left" xField="name" yField="data2" strokeColor="#7D7D7D" markerType="circle" markerSize="4" markerFill="#0B6623" title="current month">
+                <apex:chartTips height="20" width="120"/>
+            </apex:lineSeries>
+        </apex:chart>
+    </apex:pageBlock>
+    
+    
+    
+</apex:page>
+<!--
+colorSet="#FF4081,#4FC1E9,#AEF359,#FDFF72,#F0E68C,#DA4453"
+colors:  colorSet="#00A572,#C21807,#00AAE4,#66CC33,#6B3FA0,#ED872D"
+colorSet="#EC5578,#FFD300,#008751,#367588, #46997,#ED872D"
+colorSet="#C70039"
+colorSet="#64D4C7" 
+-->

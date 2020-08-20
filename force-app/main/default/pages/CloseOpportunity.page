@@ -1,0 +1,16 @@
+<apex:page standardController="Account"> 
+    <apex:form > 
+        <apex:pageblock mode="edit"> 
+            Hello {!$User.LastName}!!!
+            <p>You are viewing the {!account.name}  <apex:outputText value="{!account.name}"/> account.</p> 
+           <apex:panelGrid columns="2" border="2" cellpadding="4" cellspacing="4">
+                Account Name: <apex:inputText value="{!account.name}"/>
+                Account Number: <apex:inputText value="{!account.AccountNumber}"/> 
+                Account Phone: <apex:inputText value="{!account.phone}"/>
+                Account Site: <apex:inputText value="{!account.site}"/> 
+                Account Industry: <apex:inputText value="{!account.industry}"/>
+                <apex:commandButton value="create" action="{!save}" style="width:90px" rerender="showmsg"/>
+           </apex:panelGrid>
+        </apex:pageblock>
+    </apex:form> 
+</apex:page>

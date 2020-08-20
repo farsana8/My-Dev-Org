@@ -1,0 +1,26 @@
+<apex:page standardController="Account">
+    <apex:form >
+    <apex:pageBlock > 
+ <!-- <apex:pageBlockSection >
+  <apex:pageBlockSectionItem helpText="My custom help text...">         
+      <apex:outputLabel value="My Label"/> 
+        <apex:inputText value="{!Account.name}" />
+       </apex:pageBlockSectionItem> 
+    </apex:pageBlockSection>-->
+
+    <apex:pageBlockSection >
+        {!$ObjectType.account.fields.SLA__c.InlineHelpText}
+        <apex:pageblockSectionItem helpText="{!$ObjectType.account.fields.SLA__c.InlineHelpText}">
+            <apex:outputLabel value="{!$ObjectType.account.fields.SLA__c.label}" for="name">
+                 
+
+            </apex:outputLabel>
+                    
+                
+                <apex:inputField id="email" value="{!account.SLA__c}" onfocus="true" required="true"/>
+            
+            </apex:pageblockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

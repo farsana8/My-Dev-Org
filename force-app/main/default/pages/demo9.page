@@ -1,0 +1,65 @@
+<apex:page standardcontroller="Contact" recordsetvar="accounts">
+    {!$User.FirstName}
+<apex:pageblock title="Account List">
+  <apex:form >
+      <h3>
+          PageblockTable
+      </h3>
+  <apex:pageblocksection >
+   <apex:pageblocktable value="{!accounts}" var="b" title="List Of Accounts">
+     <apex:column value="{!b.name}" ></apex:column>
+  </apex:pageblocktable>
+      </apex:pageblocksection>
+      
+         <h3>
+          datatable
+      </h3>
+  
+      <apex:pageblocksection >
+   <apex:datatable value="{!accounts}" var="a">
+   <apex:column value="{!a.name}"></apex:column>
+   </apex:datatable>
+        
+  </apex:pageblocksection>
+         <h3>
+         datalist
+      </h3>
+       <apex:pageblocksection >
+      <apex:datalist var="a" value="{!accounts}" type="1">
+        {!a.name}
+      </apex:datalist>
+       
+    </apex:pageblocksection>
+         <h3>
+          Repeat
+      </h3>
+      <apex:pageblocksection >
+   <apex:repeat value="{!accounts}" var="a">
+   {!a.name}
+   </apex:repeat> 
+      </apex:pageblocksection>
+  <!--<apex:panelgrid columns="2">
+      <apex:commandlink action="{!previous}"> Previous</apex:commandlink>
+      <apex:commandlink action="{!next}"> Next</apex:commandlink>
+    </apex:panelgrid>-->
+      
+	<!--<apex:dataTable value="{!accounts}" var="account" id="theTable" rowClasses="odd,even" styleClass="tableClass">
+		<apex:facet name="caption">table caption</apex:facet>
+		<apex:facet name="header">table header</apex:facet>
+		<apex:facet name="footer">table footer</apex:facet>
+		<apex:column >
+        	<apex:facet name="header">Name</apex:facet>
+			<apex:facet name="footer">column footer</apex:facet>
+			<apex:outputText value="{!account.name}"/>
+		</apex:column>
+		<apex:column >
+			<apex:facet name="header">Owner</apex:facet>
+			<apex:facet name="footer">column footer</apex:facet>
+			<apex:outputText value="{!account.owner.name}"/>
+		</apex:column>
+	</apex:dataTable>-->
+ 
+      </apex:form>
+</apex:pageblock>
+ 
+</apex:page>

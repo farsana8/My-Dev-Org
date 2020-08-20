@@ -1,0 +1,67 @@
+<apex:page standardController="Contact" extensions="customLookupVFcontroller">
+   <apex:includeLightning />
+   <apex:form >
+       <apex:actionRegion >
+        <apex:actionFunction action="{!setParentId}" name="hold" reRender="none">
+            <apex:param name="firstParam" assignTo="{!passedParentid}" value="" />
+       </apex:actionFunction>
+           </apex:actionRegion>
+
+    <apex:pageBlock title="My Content" mode="view">
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!save}" value="Save"/>
+      </apex:pageBlockButtons>
+      <apex:pageBlockSection title="My Content Section" columns="2">
+        <apex:inputField value="{!Contact.lastName}" />
+          <apex:inputField value="{!contact.Firstname}"/>
+     
+    
+       
+    <div id="LcDisplayId"></div> 
+    <div>
+        
+     
+ <script>
+      // Here 'VfApp' Is Lightning Application Name
+    $Lightning.use("c:customLookupApp", function() {
+      /* 'LcForVf' is Lightning Component Name which we are Displaying In Vf Page 
+       * syntax for create lightning component dynamically :
+       * $Lightning.createComponent(String type, Object attributes, String locator, function callback) */
+    $Lightning.createComponent("c:lightningLookup",
+    { 
+        /* Set Lightning Component Attributes Property before creating Lightning Component In Visualforce page 
+        //  textColor : "Red",
+        //  currentUserName : '{!$User.FirstName} {!$User.LastName}' 
+        // currentUserName : 'Farsana ps'*/
+         objectName:"Account" ,fieldName:"Name", label:"Account Name", iconName:"standard:account" ,placeholder:"Enter Value",
+        parentid:'{!parentid}',parentField:"parentId"
+ 	},
+   "LcDisplayId",
+    function(component) {
+       $A.eventService.addHandler({ "event": "c:Vf_ComponentEvent", "handler" : VFEventHandler});
+        // create component Callback, Lightning Component has been Created,
+        // Now you can set more lightning Component attributes here,
+        // and do more cool stuff here
+              //  component.set("v.accId" , '{!$CurrentPage.parameters.recId}');
+        // component.set("v.accId" , '0017F00001AFuMHQA1');
+    });
+ });
+       
+        
+ </script>
+          </div>
+            </apex:pageBlockSection>
+    </apex:pageBlock>
+
+         </apex:form>
+    <script>
+      function VFEventHandler(event){
+        console.log('event is handled by VF page function');
+        var myEventData = event.getParam("recId");
+    	console.log('value passed from component;'+myEventData);
+             alert('from vf'+myEventData);
+             hold(myEventData);
+           }
+    </script>
+    
+</apex:page>

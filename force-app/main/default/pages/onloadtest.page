@@ -1,0 +1,19 @@
+<apex:page controller="onloadcontroller" action="{!check}">
+    <apex:form id="md1" >
+           HELLLOOOOOO...
+
+      <apex:actionfunction action="{!check}" name="cal"  rerender="mdl" >
+                        
+                </apex:actionfunction>
+    </apex:form>
+   
+      <script type = "text/javascript">
+    window.onload=function()       
+    {        
+        alert("Hi");
+        cal();
+        
+    };
+    </script>
+  
+</apex:page>

@@ -1,0 +1,80 @@
+<apex:page >
+
+<apex:includeScript value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/JQueryComet/Cometd.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/jquery_1.5.2.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/JQueryComet/json2.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/JQueryComet/jquery.cometd.js')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/Style/jquery-animate-css-rotate-scale.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/Style/jquery-css-transform.js')}"/>
+
+<apex:stylesheet value="{!URLFOR($Resource.streamingAPI, 'StreaminAPI/Style/style.css')}"/>
+
+<div class="menu">
+<!-- Place holder for notifications -->
+</div>
+
+	 <script type="text/javascript">
+	    var $jq = jQuery.noConflict();
+
+            $jq('.item').click(
+                function(){
+                    var $this = $jq(this);
+                    expand($this);
+                }
+            );
+            function expand($elem){
+                var angle = 0;
+                var t = setInterval(function () {
+                    if(angle == 1440){
+                        clearInterval(t);
+                        return;
+                    }
+                    angle += 40;
+                    $jq('.link',$elem).stop().animate({rotate: '+=-40deg'}, 0);
+                },10);
+                $elem.stop().animate({width:'500px'}, 1000)
+                .find('.item_content').fadeIn(400);
+            }
+
+           function createEle(data)
+           {
+	           	var $itemDiv = $jq(document.createElement('div'));
+	           	$itemDiv.addClass('item');
+
+	           	var $anch =  $jq(document.createElement('a'));
+	           	$anch.addClass('link');
+	           	$anch.addClass('icon_alert');
+
+	           	var $contentDiv = $jq(document.createElement('div'));
+	           	$contentDiv.addClass('item_content');
+
+	           	var $h2 = $jq(document.createElement('h2'));
+	           	$h2.html('Won New Opportunity');
+	           	$contentDiv.append($h2);
+
+	           	$contentDiv.append('<br />Name : '+data.Name+' <br />	Amount : '+data.Amount+' <br /><a href="#"> Navigate to Opportunity </a>');
+
+	           	$itemDiv.append($anch);
+	           	$itemDiv.append($contentDiv);
+	           	$jq(".menu").append($itemDiv);
+	           	expand($itemDiv);
+           }
+
+           $jq(function() {
+			 	 // Connect to the CometD endpoint
+
+	            $jq.cometd.init({
+	               url: window.location.protocol+'//'+window.location.hostname+'/cometd/23.0/',
+	               requestHeaders: { Authorization: 'OAuth {!$Api.Session_ID}'}
+	           });
+
+	          $jq.cometd.subscribe('/topic/StudentUpdates', function(message) {
+                  console.log(message);
+	          		createEle(message.data.sobject);
+	            });
+
+			});
+
+        </script>
+</apex:page>

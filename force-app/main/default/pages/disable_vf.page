@@ -1,0 +1,57 @@
+<apex:page controller="disable_vf_controller">
+    <!--<apex:form>
+        <apex:commandButton action="{!allacc}" value="Show All Accounts" disabled="{!If((total<=acclimit),true,If((acclist.size>acclimit),true,false))}"/>
+        <apex:dataTable value="{!acclist}" var="acc">
+            <apex:column value="{!acc.id}" headerValue="Id"/>
+            <apex:column value="{!acc.name}" headerValue="Name"/>
+        </apex:dataTable>
+    </apex:form>-->
+     <apex:form id="form">
+    <apex:pageBlock title="Document">
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlockButtons id="chk">
+            <apex:commandButton action="{!allacc}" value="Upload"  onclick="startCombine(this);" />
+            <input type="button" class="btn" value="Cancel"  />
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection showHeader="false" columns="1" id="block1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Document" for="file1"/>
+                <apex:inputFile value="{!Account1.body}" filename="{!Account1.name}" id="file1">  
+                </apex:inputFile>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Document" for="file2"/>
+                <apex:inputFile value="{!Account2.body}" filename="{!Account2.name}" id="file2"> 
+                    </apex:inputFile>
+            </apex:pageBlockSectionItem>    
+             <apex:commandButton action="{!allacc}" value="checkme"  onclick="run(this);" />
+        </apex:pageBlockSection>
+    </apex:pageBlock>    
+  
+         <script type="text/javascript">
+    function startCombine(startButton) {
+            if(Account1.body!=NULL && Account2.body!=NULL)
+        {
+            alert(True);
+           startButton.disabled = true;
+        }
+        else
+            {
+        startButton.disabled = false;
+                alert(false);
+                }
+
+         alert('132');
+
+    }
+         function run(startButton) {
+          alert('Hello');
+             startButton.disabled = true;
+    }
+</script>
+    
+         
+  </apex:form>
+</apex:page>
+
+<!-- disabled="{!If((Account1.body == NULL )&&(Account2.body == NULL),true,false)}" -->

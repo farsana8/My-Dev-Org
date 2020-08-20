@@ -1,0 +1,51 @@
+<apex:page controller="taskcontroller" >
+    <apex:form >
+        <apex:pageBlock id="error">
+        <apex:pageMessages ></apex:pageMessages>
+            </apex:pageBlock>
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+       
+            <apex:inputField label="name" value="{!st.name}"/>
+         
+            
+        <apex:inputField value=" {!st.class__c}">
+           
+        <apex:actionSupport action="{!showme}" event="onchange" rerender="stud,strngth,error">  
+            
+            </apex:actionSupport>
+        </apex:inputField>
+            <apex:actionRegion >
+        <apex:inputField value="{!st.physics__c}">
+            <apex:actionSupport action="{!showgr}" event="onkeyup" reRender="chck1">  
+            
+            </apex:actionSupport>
+            </apex:inputField>
+               
+              
+                </apex:actionRegion>
+        <apex:inputField value=" {!st.chemistry__c}"/> 
+            
+                  <apex:outputText id="chck1" value="{!grade}"> </apex:outputText>
+                
+         <apex:commandButton action="{!saveme}" value="save"></apex:commandButton>
+        </apex:pageBlockSection>
+        
+        </apex:pageBlock>
+        <apex:pageBlock id="stud">
+            <apex:pageBlockSection >
+            <apex:pageBlockTable value="{!lst}" var="k">
+                <apex:column value="{!k.name}"/>
+                <apex:column value="{!k.class__c}"/>
+                
+   
+             </apex:pageBlockTable>
+               
+            </apex:pageBlockSection>
+            <apex:pageblockSection id="strngth">
+                <apex:outputText label="strength" value="{!n}"></apex:outputText>
+            </apex:pageblockSection>
+        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

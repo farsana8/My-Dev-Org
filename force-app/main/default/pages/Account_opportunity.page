@@ -1,0 +1,57 @@
+<apex:page controller="account_opportunity_controller">
+ <apex:form >       
+   <apex:selectList value="{!val}"  multiselect="false" size="1">
+         <apex:actionSupport event="onchange" action="{!changeList}" reRender="myblck"/>
+      <apex:selectOptions value="{!items}">
+    </apex:selectOptions>
+</apex:selectList>
+   <!--    <apex:pageBlock id="myblck" >
+       <apex:pageBlockSection title="Related Records">
+           <apex:pageBlockTable value="{!acc_final_list}" var="con" >  
+               
+               <apex:column >
+                 <apex:pageBlockTable value="{!con.contacts}" var="c" > 
+                 <apex:column headerValue="contact name"  value="{!c.name}"/>
+                   </apex:pageBlockTable> 
+               </apex:column>
+                 <apex:column >
+                     <apex:pageBlockTable value="{!con.opportunities}" var="o" > 
+                 <apex:column headerValue="opportunity name" value="{!o.name}"/>
+               </apex:pageBlockTable>
+                   </apex:column>
+            </apex:pageBlockTable> -->
+           
+           <!--  <apex:pageBlockTable id="block" value="{!acc_final_list}" var="a" styleClass="slds-table slds-table_bordered slds-table_cell-buffer">
+        			<apex:column headerValue="NAME" value="{!a.Name}"/>
+                   
+        			<apex:column >
+                        <apex:pageBlockSection collapsible="true" columns="2" >
+                            <apex:pageBlockTable value="{!a.Scheduled_Devices__r}" var="c">
+                                <apex:column value="{!c.device__r.Name}"/>                   			
+                                <apex:column value="{!c.device__r.room__r.Name}"/>
+                            </apex:pageBlockTable>
+                        </apex:pageBlockSection>
+        			 </apex:column>
+    		     </apex:pageBlockTable>-->
+         <!-- </apex:pageBlockSection>-->
+
+   <apex:pageBlock id="myblck">
+        <apex:pageBlock >
+  <apex:pageBlockSection title="Related contacts">
+           <apex:pageBlockTable value="{!con_list}" var="con" >  
+               <apex:column headerValue="Contact Name" value="{!con.name}"/>
+            </apex:pageBlockTable>  
+          </apex:pageBlockSection>
+       </apex:pageBlock>
+        <apex:pageBlock >
+      <apex:pageBlockSection title="Related opportunities">
+            <apex:pageBlockTable value="{!opp_list}" var="opp" >  
+                <apex:column headerValue="Opportunity Name" value="{!opp.name}"/>
+            </apex:pageBlockTable>  
+      </apex:pageBlockSection>
+       </apex:pageBlock>
+   </apex:pageBlock> 
+
+     
+</apex:form>
+</apex:page>

@@ -1,0 +1,18 @@
+<aura:component controller="displayActiveUserController" implements="force:appHostable" access="global"  >
+	 <aura:attribute name="userList" type="user[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.displayUser}" 
+                  description = "For displaying active user"/>
+     <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+             <tr >
+                 <th >Id </th >
+                 <th >Name </th >
+             </tr >
+             <aura:iteration items="{!v.userList}" var="u" >
+                 <tr >
+                     <td >{!u.Id} </td >
+                     <td >{!u.Name} </td >
+                     <td><lightning:button label="chat" onclick="{!c.chatAction}"/></td>
+                 </tr >     
+             </aura:iteration >
+         </table >
+</aura:component>

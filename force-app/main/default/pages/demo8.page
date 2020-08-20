@@ -1,0 +1,25 @@
+<apex:page standardController="contact" recordSetVar="stud">
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockTable value="{!stud}" var="a">
+<apex:column headerValue="Contact Name">
+<apex:outputField value="{!a.name}"/>
+    </apex:column>
+<apex:column headerValue="Contact lastname">
+<apex:outputField value="{!a.lastname}"/>    
+</apex:column>
+</apex:pageBlockTable>
+
+<!-- pagination actions supported by standard list controller -->
+<apex:pageBlockButtons >
+<apex:commandButton value="First" action="{!first}"/>
+<apex:commandButton value="Last" action="{!last}"/>
+<apex:commandButton value="Next" action="{!next}"/>
+<apex:commandButton value="previous" action="{!previous}" />
+</apex:pageBlockButtons>
+</apex:pageBlock>
+<apex:pageBlock >
+    <apex:image value="{!$Resource.image1}" height="200" width="100"/>  
+</apex:pageBlock>
+</apex:form>
+</apex:page>

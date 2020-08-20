@@ -1,0 +1,57 @@
+<apex:page controller="Student">
+    <apex:form >
+        <apex:pageBlock title="Student Details">
+     <apex:pageBlockSection columns="2">    
+   <apex:inputText value="{!stud.Name}" />
+         <apex:inputText value="{!stud.Age__c}" />
+          <apex:inputText value="{!stud.Course__c}"/>
+      
+    
+           </apex:pageBlockSection>  
+           <apex:pageBlockButtons location="bottom">
+        <apex:commandButton value="Save" action="{!save}"/>
+       </apex:pageBlockButtons>
+            </apex:pageBlock>
+ 
+      <apex:pageBlock title="Students ">
+   <apex:pageBlockTable value="{!attr}"  var="stu" >
+       <apex:column value="{!stu.Name}"/>
+        <apex:column value="{!stu.Age__c}"/>
+       <apex:column value="{!stu.Course__c}"/>
+      
+                </apex:pageBlockTable>
+             </apex:pageBlock>
+                    <!--  <apex:pageBlock title="Students ">
+                   
+                       <apex:dataTable value="{!attr}" var="stu">
+                   <tr>
+                     <td>  <apex:outputText value="{!stu.Name}"/></td>
+                        
+
+                         <td>{!stu.Age__c}</td>
+ 
+                         <td>{!stu.Course__c}</td>
+                   </tr> 
+                           </apex:dataTable>-->
+
+                    
+         
+    
+     
+   </apex:form>
+</apex:page>
+
+
+
+
+
+
+
+
+
+
+ <!--   <apex:actionSupport event="onchange" action="{!demo}" reRender="oid"/>
+         </apex:inputText>
+         <apex:panelGrid id="oid">
+         <apex:outputText label="Division" value="{!div}"> </apex:outputText></apex:panelGrid>
+  <apex:inputField value="{!stud.Course__c}" /> -->

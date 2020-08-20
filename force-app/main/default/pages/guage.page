@@ -1,0 +1,45 @@
+<apex:page controller="TogleClass" sidebar="false">
+<!--  <style type="text/css"> 
+.myClass 
+{	
+color:white !important;
+background:#40e0d0 !important;
+}
+.myClass2
+{ 
+color:white !important;
+background: #008000 !important;
+}
+.myClass1
+{ 
+color:white !important;
+background:#FF0000 !important; 
+}
+
+</style>-->
+    <apex:form > 
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['gauge']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            //getme();
+            var data = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['total_Usage', {!val}],
+            ]);
+                var options = {
+                width: 400, height: 180,
+                redFrom: 70, redTo: 100,
+                yellowFrom:00, yellowTo: 40,
+                greenFrom: 40, 
+                greenTo: 70,
+                minorTicks: 10
+                };
+                var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+                chart.draw(data, options);
+                }
+                </script>
+        <div id="chart_div"  style="width: 400px; height: 200px;" ></div>
+    </apex:form> 
+</apex:page>

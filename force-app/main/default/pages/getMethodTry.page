@@ -1,0 +1,9 @@
+<apex:page controller="conVsBad">
+    getContactMethod1(): {!contactMethod1.name}<br/>
+    getContactMethod3(): {!contactMethod3.name}<br/>
+    
+    getContactMethod2(): {!contactMethod2.name}<br/>
+
+    
+   
+</apex:page>

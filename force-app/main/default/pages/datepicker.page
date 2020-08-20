@@ -1,0 +1,14 @@
+<apex:page docType="html-5.0" controller="home_controller">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <!--<apex:pageBlockSectionItem >-->
+                Date: <apex:input type="date" value="{!dat}"/>
+           
+           <!-- </apex:pageBlockSectionItem>-->
+            date1: <apex:inputField value="{!d.date1__c}" />
+     
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

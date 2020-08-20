@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable" access="global" >
+
+Hi there ! You have landed in Component 2 ! <br/>
+
+ 
+
+ 
+
+ 
+</aura:component>

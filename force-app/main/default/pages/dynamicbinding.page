@@ -1,0 +1,21 @@
+<apex:page controller="DynamicVisualforceController">
+ <!-- my first dynamic visualforce page -->
+<b>Object Name stored in custom Label : </b><apex:outputText value="{!Objectname}"/>
+<apex:pageBlock >
+   
+      <apex:pageBlockTable value="{!fieldList}" var="sObjField">
+        <apex:column value="{!sObjField}"/>
+     </apex:pageBlockTable>
+   
+    <apex:pageBlockTable value="{!sObjectList}" var="sObjRec">
+      <apex:repeat value="{!fieldList}" var="sObjField">
+        <apex:column value="{!sObjRec[sObjField]}"/>
+     </apex:repeat>
+    </apex:pageBlockTable>
+     <apex:pageBlockTable value="{!sObjectList}" var="sObjRec">
+     
+        <apex:column value="{!sObjRec}"/>
+     
+    </apex:pageBlockTable>
+   </apex:pageBlock>
+</apex:page>
